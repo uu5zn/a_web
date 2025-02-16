@@ -1,0 +1,31 @@
+name: Collect Financial News
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # 每小时运行一次
+  workflow_dispatch:     # 支持手动触发
+
+jobs:
+  collect-news:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: pip install feedparser pytz requests
+
+      - name: Run news crawler
+        run: python fetch_news.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/latest_news.json
+          git commit -m "Auto: Update financial news"
+          git push
