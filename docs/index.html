@@ -2,6 +2,8 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <title>实时财经快讯</title>
   <!-- 引入 Vue 和样式 -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -14,6 +16,9 @@
   </style>
 </head>
 <body>
+  <script>
+  setInterval(() => location.reload(), 60000); // 单位：毫秒
+</script>
   <div id="app">
     <h1>最新财经快讯（24小时内）</h1>
     <p>更新时间：{{ lastUpdated }}</p>
