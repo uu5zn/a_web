@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>实时财经快讯</title>
+  <!-- 引入 Vue 和样式 -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 0 20px; }
+    .news-item { margin: 15px 0; padding: 10px; border-bottom: 1px solid #eee; }
+    .time { color: #666; font-size: 0.9em; }
+    .content { margin-top: 5px; }
+    .source { color: #007bff; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>最新财经快讯（24小时内）</h1>
+    <p>更新时间：{{ lastUpdated }}</p>
+    <div v-for="item in news" :key="item.id" class="news-item">
+      <div class="time">{{ formatTime(item.publish_time) }}</div>
+      <div class="title"><strong>{{ item.title }}</strong></div>
+      <div class="content">{{ item.content }}</div>
+      <a :href="item.link" class="source" target="_blank">来源链接</a>
+    </div>
+  </div>
+
+  <script>
+    // 动态加载 JSON 数据并渲染
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return {
+          news: [],
+          lastUpdated: ''
+        }
+      },
+      mounted() {
+        fetch('../data/latest_news.json') // 注意 JSON 文件路径
+          .then(response => response.json())
+          .then(data => {
+            this.news = data.news;
+            this.lastUpdated = new Date(data.last_updated).toLocaleString();
+          });
+      },
+      methods: {
+        formatTime(utcTime) {
+          return new Date(utcTime).toLocaleString();
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
