@@ -1,0 +1,27 @@
+name: Financial News Aggregator
+
+on:
+  schedule:
+    - cron: '0,30 * * * *'  # 每 30 分钟运行一次
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  run_aggregator:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run aggregator
+        run: python main.py
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "your-email@example.com"
+          git config --global user.name "Your Name"
+          git add financial_news.jsonl  # 提交你的数据文件
+          git commit -m "Update financial news data" || echo "No changes to commit"
+          git push origin main
