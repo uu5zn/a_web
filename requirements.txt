@@ -2,5 +2,3 @@ lxml
 requests
 python-dateutil
 pytz
-json
-glob
