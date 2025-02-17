@@ -79,4 +79,8 @@ rss_urls = [
 ]
 
 process_rss_feeds(rss_urls) #  
+import os
+
+print("当前工作目录:", os.getcwd())
+print("当前工作目录下的文件:", os.listdir())
 
