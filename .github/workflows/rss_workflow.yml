@@ -32,3 +32,10 @@ jobs:
           YOUR_SITE_NAME: ${{ secrets.YOUR_SITE_NAME }}
         run: python rss_aggregator.py #只需要运行这个文件
           
+      - name: Commit and push generated JSON
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add *.json  # 假设生成的 JSON 文件在根目录下
+          git commit -m "_Update generated JSON file" || echo "No changes to commit"
+          git push
