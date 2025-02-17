@@ -54,7 +54,7 @@ def parse_rss(xml_content):
         print(f"XML 解析出错: {e}")
         return []
 
-def process_rss_feeds(rss_urls, filename="output/rss_output.json"):
+def process_rss_feeds(rss_urls, filename="rss_output.json"):
     """处理多个 RSS 源，并保存为 JSON 格式，不保存 link"""
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     all_entries = []
