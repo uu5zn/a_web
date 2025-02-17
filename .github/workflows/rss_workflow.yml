@@ -3,7 +3,7 @@ name: RSS Processing Workflow
 on:
   schedule:
     - cron: '*/10 * * * *'        # 每小时的 0 分钟执行 process_rss_feeds.py
-    - cron: '10 17 * * *'     # 每天下午 5 点 10 分 (17:10) 执行 rss_aggregator.py
+    - cron: '0 * * * *'     # 每天下午 5 点 10 分 (17:10) 执行 rss_aggregator.py10 17 * * *
 
 jobs:
   rss_processing:
@@ -25,7 +25,7 @@ jobs:
         run: python process_rss_feeds.py #只需要运行这个文件
 
       - name: Run rss_aggregator.py 
-        if: github.event.schedule == '10 17 * * *' #每天下午 5 点 10 分 (17:10) 执行
+        if: github.event.schedule == '0 * * * *' #每天下午 5 点 10 分 (17:10) 执行
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}  # 使用 GitHub Secrets
           YOUR_SITE_URL: ${{ secrets.YOUR_SITE_URL }}
