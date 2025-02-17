@@ -78,7 +78,7 @@ rss_urls = [
     "https://rsshub.app/telegram/channel/Financial_Express",  # 添加更多 RSS 源
 ]
 
-process_rss_feeds(rss_urls) #  
+process_rss_feeds(rss_urls,"rss_output.json") #  
 import os
 
 print("当前工作目录:", os.getcwd())
