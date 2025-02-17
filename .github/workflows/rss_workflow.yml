@@ -2,7 +2,7 @@ name: RSS Processing Workflow
 
 on:
   schedule:
-    - cron: '*/10 * * * *'        # 每小时的 0 分钟执行 process_rss_feeds.py
+    - cron: 'cc'        # 每小时的 0 分钟执行 process_rss_feeds.py
     - cron: '10 17 * * *'     # 每天下午 5 点 10 分 (17:10) 执行 rss_aggregator.py
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run process_rss_feeds.py
-        if: github.event.schedule == '0 * * * *'
+        if: github.event.schedule == '*/10 * * * *'
         run: python process_rss_feeds.py #只需要运行这个文件
 
       - name: Run rss_aggregator.py 
