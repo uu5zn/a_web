@@ -54,8 +54,9 @@ def parse_rss(xml_content):
         print(f"XML 解析出错: {e}")
         return []
 
-def process_rss_feeds(rss_urls, filename="rss_output.json"):
+def process_rss_feeds(rss_urls, filename="output/rss_output.json"):
     """处理多个 RSS 源，并保存为 JSON 格式，不保存 link"""
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
     all_entries = []
     for url in rss_urls:
         xml_content = fetch_rss(url)
@@ -67,6 +68,7 @@ def process_rss_feeds(rss_urls, filename="rss_output.json"):
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(all_entries, f, ensure_ascii=False, indent=2)
         print(f"成功将条目保存到 JSON 文件: {filename}")
+        print(all_entries)
     except Exception as e:
         print(f"保存 JSON 文件时出错: {e}")
 
