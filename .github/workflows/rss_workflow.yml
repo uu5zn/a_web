@@ -2,7 +2,7 @@ name: RSS Processing Workflow
 
 on:
   schedule:
-    - cron: '/10 * * * *'        # 每小时的 0 分钟执行 process_rss_feeds.py
+    - cron: '*/10 * * * *'        # 每小时的 0 分钟执行 process_rss_feeds.py
     - cron: '10 17 * * *'     # 每天下午 5 点 10 分 (17:10) 执行 rss_aggregator.py
 
 jobs:
